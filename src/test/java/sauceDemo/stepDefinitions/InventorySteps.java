@@ -17,6 +17,7 @@ import java.util.List;
 import static sauceDemo.elements.GeneralPOM.*;
 import static sauceDemo.elements.InventoryPOM.*;
 import static sauceDemo.elements.LoginPOM.logoutBtn;
+import static sauceDemo.enums.ExpectedConditionType.VISIBLE;
 
 public class InventorySteps extends BaseMethods{
     private String inventoryElementName;
@@ -119,8 +120,9 @@ public class InventorySteps extends BaseMethods{
     }
 
     @And("Clicks menu button")
-    public void weClickMenuButton() {
+    public void weClickMenuButton() throws InterruptedException {
         te(menuBtn).click();
+        explicitWait(logoutBtn , VISIBLE , 5);
     }
 
     @And("Clicks logout btn")

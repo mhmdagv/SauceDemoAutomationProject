@@ -30,7 +30,6 @@ Background:
       And Clicks to basket button
       Then User should see that item in the basket
 
-
   Scenario: Adding item to the inventory and check item after logout and login
     Given User is in SauceDemo homepage
     When User clicks add to the card button for any item
