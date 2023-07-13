@@ -9,5 +9,4 @@ public class GeneralSteps extends BaseMethods{
         driver.get("https://www.saucedemo.com/");
     }
 
-
 }
