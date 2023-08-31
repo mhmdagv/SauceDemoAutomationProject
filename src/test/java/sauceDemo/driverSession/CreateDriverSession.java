@@ -10,6 +10,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ThreadGuard;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,16 +18,19 @@ import java.util.UUID;
 
 public class CreateDriverSession {
 
-    public static WebDriver driver;
-
+    public static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    public static WebDriver getDriver(){
+        return driver.get();
+    }
 
     @Before
     public void beforeScenario(){
-        WebDriverManager.chromedriver().setup();
+//        WebDriverManager.chromedriver().setup();
+        System.setProperty("webdriver.chrome.driver" ,/* add your own chromedriver path*/ "/Users/agayevmr/Documents/Automation Testing/SauceDemoo/chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(chromeOptions);
-        driver.manage().window().maximize();
+        driver.set(ThreadGuard.protect(new ChromeDriver(chromeOptions)));
+        getDriver().manage().window().maximize();
     }
 
 
@@ -37,7 +41,7 @@ public class CreateDriverSession {
             byte[] fileContent = FileUtils.readFileToByteArray(screenshot);
             scenario.attach(fileContent, "image/png", UUID.randomUUID().toString());
         }
-        driver.quit();
+        getDriver().quit();
     }
 
 }

@@ -18,14 +18,23 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'junit:junit:4.13.1'
     implementation 'org.seleniumhq.selenium:selenium-java:4.8.1'
     implementation 'io.github.bonigarcia:webdrivermanager:5.3.2'
-    testImplementation 'org.testng:testng:7.0.0'
     implementation 'io.cucumber:cucumber-core:7.0.0'
     implementation 'io.cucumber:cucumber-java:7.0.0'
-    implementation 'io.cucumber:cucumber-testng:7.0.0'
-    testImplementation 'io.cucumber:cucumber-junit:7.0.0'
+    implementation 'io.cucumber:cucumber-testng:7.0.0'  // Use cucumber-junit instead of cucumber-testng
     testImplementation 'net.masterthought:cucumber-reporting:5.7.5'
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: '7.0.0'
+    testImplementation group: 'org.testng', name: 'testng', version: '7.0.0'
+
+
+}
+
+// No need to configure TestNG-specific settings here
+
+tasks.test {
+    useTestNG()
+    scanForTestClasses = false
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
 
 }

@@ -15,11 +15,7 @@ import java.util.List;
 
 public abstract class BaseMethods {
 
-    protected WebDriver driver;
-    public BaseMethods(){
-        this.driver = CreateDriverSession.driver;
-    }
-
+    protected WebDriver driver = CreateDriverSession.getDriver();
     protected JavascriptExecutor getJsExc(){
         return (JavascriptExecutor) driver;
     }
